@@ -1,14 +1,18 @@
+import { AuthCard } from "@daveyplate/better-auth-ui";
+
 import { Header } from "@/components/app/header";
 import { Footer } from "@/components/app/footer";
 
-export default function PrivacyPage() {
+export default async function SignUpPage() {
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <Header />
 
-      <main className="grow">
+      <main>
         <section className="container mx-auto px-4 py-16">
-          <div className="text-center max-w-4xl mx-auto"></div>
+          <div className="max-w-xl mx-auto">
+            <AuthCard view="SIGN_UP" />
+          </div>
         </section>
       </main>
 

@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -38,7 +38,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
+              {children}
+            </div>
           </ThemeProvider>
         </AuthProvider>
       </body>
