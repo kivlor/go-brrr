@@ -24,6 +24,20 @@ export default $config({
 
     new sst.aws.Nextjs("GoBrrrWeb", { link: [database], vpc });
 
+    if (!$dev) {
+      new sst.aws.Function("GoBrrrMigrator", {
+        handler: "src/db/migrator.handler",
+        link: [database],
+        vpc: vpc,
+        copyFiles: [
+          {
+            from: "drizzle",
+            to: "./migrations",
+          },
+        ],
+      });
+    }
+
     new sst.x.DevCommand("Studio", {
       link: [database],
       dev: {
