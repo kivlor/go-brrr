@@ -13,6 +13,10 @@ declare module "sst" {
       "type": "sst.aws.Postgres"
       "username": string
     }
+    "GoBrrrMigrator": {
+      "name": string
+      "type": "sst.aws.Function"
+    }
     "GoBrrrVpc": {
       "type": "sst.aws.Vpc"
     }

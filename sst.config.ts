@@ -28,17 +28,22 @@ export default $config({
       domain: "gobrrr.kivlor.com",
     });
 
+    const migrator = new sst.aws.Function("GoBrrrMigrator", {
+      handler: "src/lib/migrator.handler",
+      link: [database],
+      vpc: vpc,
+      copyFiles: [
+        {
+          from: "drizzle",
+          to: "./migrations",
+        },
+      ],
+    });
+
     if (!$dev) {
-      new sst.aws.Function("GoBrrrMigrator", {
-        handler: "src/db/migrator.handler",
-        link: [database],
-        vpc: vpc,
-        copyFiles: [
-          {
-            from: "drizzle",
-            to: "./migrations",
-          },
-        ],
+      new aws.lambda.Invocation("DatabaseMigratorInvocation", {
+        input: Date.now().toString(),
+        functionName: migrator.name,
       });
     }
 
