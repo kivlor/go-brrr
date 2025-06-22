@@ -11,7 +11,7 @@ export default $config({
     };
   },
   async run() {
-    const vpc = new sst.aws.Vpc("GoBrrrVpc");
+    const vpc = new sst.aws.Vpc("GoBrrrVpc", { nat: "ec2" });
     const database = new sst.aws.Postgres("GoBrrrDatabase", {
       vpc,
       dev: {
@@ -22,7 +22,11 @@ export default $config({
       },
     });
 
-    new sst.aws.Nextjs("GoBrrrWeb", { link: [database], vpc });
+    new sst.aws.Nextjs("GoBrrrWeb", {
+      link: [database],
+      vpc,
+      domain: "gobrrr.kivlor.com",
+    });
 
     if (!$dev) {
       new sst.aws.Function("GoBrrrMigrator", {
