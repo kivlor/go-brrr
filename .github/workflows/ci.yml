@@ -71,6 +71,6 @@ jobs:
       - name: Deploy with SST
         run: |
           echo "Deploying to ${{ env.SST_STAGE }} environment"
-          npm run sst deploy -- --stage ${{ env.SST_STAGE }}
+          npx sst deploy -- --stage ${{ env.SST_STAGE }}
         env:
           NODE_OPTIONS: --max-old-space-size=4096
